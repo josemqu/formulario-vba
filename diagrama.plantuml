@@ -1,0 +1,108 @@
+@startuml
+
+entity Incidente {
+  * id_incidente : UUID
+  --
+  fecha_hora_ocurrencia : datetime
+  pais : varchar
+  provincia : varchar
+  localidad_zona : varchar
+  lugar_especifico : varchar
+  uo_incidente : varchar
+  uo_accidentado : varchar
+  descripcion_esv : text
+  denuncia_policial : varchar
+  examen_alcoholemia : varchar
+  examen_sustancias : varchar
+  entrevistas_testigos : varchar
+  accion_inmediata : varchar
+  consecuencias_seguridad : varchar
+  fecha_hora_reporte : datetime
+  cantidad_personas : int
+  cantidad_vehiculos : int
+  clase_evento : varchar
+  tipo_colision : varchar
+  nivel_severidad : varchar
+  clasificacion_esv : varchar
+  coordenadas_geograficas : varchar
+}
+
+entity Persona {
+  * id_persona : UUID
+  --
+  id_incidente : UUID
+  nombre_persona : varchar
+  apellido_persona : varchar
+  edad_persona : int
+  tipo_persona : varchar
+  rol_persona : varchar
+  antiguedad_persona : varchar
+  tarea_operativa : varchar
+  turno_operativo : varchar
+  tipo_danio_persona : varchar
+  dias_perdidos : int
+  atencion_medica : varchar
+  in_itinere : varchar
+  tipo_afectacion : varchar
+  parte_afectada : varchar
+}
+
+entity Vehiculo {
+  * id_vehiculo : UUID
+  --
+  id_incidente : UUID
+  tipo_vehiculo : varchar
+  duenio_vehiculo : varchar
+  uso_vehiculo : varchar
+  posee_patente : varchar
+  numero_patente : varchar
+  anio_fabricacion_vehiculo : varchar
+  tarea_vehiculo : varchar
+  tipo_danio_vehiculo : varchar
+  cinturon_seguridad : varchar
+  cabina_cuchetas : varchar
+  airbags : varchar
+  gestion_flotas : varchar
+  token_conductor : varchar
+  marca_dispositivo : varchar
+  deteccion_fatiga : varchar
+  camara_trasera : varchar
+  limitador_velocidad : varchar
+  camara_delantera : varchar
+  camara_punto_ciego : varchar
+  camara_360 : varchar
+  espejos_punto_ciego : varchar
+  alarma_marcha_atras : varchar
+  sistema_frenos : varchar
+  monitoreo_neumaticos : varchar
+  proteccion_lateral : varchar
+  proteccion_trasera : varchar
+  acondicionador_cabina : varchar
+  calefaccion_cabina : varchar
+  manos_libres_cabina : varchar
+  kit_alcoholemia : varchar
+  kit_emergencia : varchar
+  epps_vehiculo : varchar
+}
+
+entity FactoresExternos {
+  * id_factor : UUID
+  --
+  id_incidente : UUID
+  tipo_superficie : varchar
+  posee_banquina : varchar
+  tipo_ruta : varchar
+  densidad_trafico : varchar
+  condicion_ruta : varchar
+  iluminacion_ruta : varchar
+  senalizacion_ruta : varchar
+  geometria_ruta : varchar
+  condiciones_climaticas : varchar
+  rango_temperaturas : varchar
+}
+
+Incidente ||--o{ Persona : "1 a N"
+Incidente ||--o{ Vehiculo : "1 a N"
+Incidente ||--|| FactoresExternos : "1 a 1"
+
+@enduml
