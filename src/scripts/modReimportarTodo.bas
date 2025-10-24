@@ -21,17 +21,17 @@ Public Sub ReimportarTodoElCodigo()
     
     Set vbProj = Application.VBE.ActiveVBProject
     base = "g:\My Drive\Trabajo\Staff-Fire\Seguridad Vehicular\Archivos de Trabajo\formulario_vba\src\vba"
-    modPath = base & "\modules\"
-    clsPath = base & "\classes\"
+    modPath = base & "\"
+    clsPath = base & "\"
     
-    ' Paso 1: Eliminar todos los módulos y clases (excepto este módulo y hojas/formularios)
+    ' Paso 1: Eliminar todos los mï¿½dulos y clases (excepto este mï¿½dulo y hojas/formularios)
     For i = vbProj.VBComponents.Count To 1 Step -1
         Set comp = vbProj.VBComponents(i)
         
-        ' Solo eliminar módulos estándar y clases
+        ' Solo eliminar mï¿½dulos estï¿½ndar y clases
         ' NO eliminar hojas (Document) ni formularios (MSForm)
         If comp.Type = CT_STD_MODULE Or comp.Type = CT_CLASS_MODULE Then
-            ' No eliminar este módulo mientras se ejecuta
+            ' No eliminar este mï¿½dulo mientras se ejecuta
             If comp.name <> "modReimportarTodo" Then
                 On Error Resume Next
                 vbProj.VBComponents.Remove comp
@@ -40,7 +40,7 @@ Public Sub ReimportarTodoElCodigo()
         End If
     Next i
     
-    ' Paso 2: Importar módulos estándar (.bas)
+    ' Paso 2: Importar mï¿½dulos estï¿½ndar (.bas)
     f = Dir(modPath & "*.bas")
     Do While Len(f) > 0
         vbProj.VBComponents.Import modPath & f
@@ -54,7 +54,7 @@ Public Sub ReimportarTodoElCodigo()
         f = Dir
     Loop
 
-    ' Paso 4: Limpiar encabezados inválidos en clases (si los hubiera)
+    ' Paso 4: Limpiar encabezados invï¿½lidos en clases (si los hubiera)
     For i = 1 To vbProj.VBComponents.Count
         Set comp = vbProj.VBComponents(i)
         If comp.Type = CT_CLASS_MODULE Then
@@ -62,23 +62,23 @@ Public Sub ReimportarTodoElCodigo()
         End If
     Next i
     
-    MsgBox "Reimportación completada." & vbCrLf & _
-           "Módulos y clases eliminados y reimportados desde:" & vbCrLf & _
+    MsgBox "Reimportaciï¿½n completada." & vbCrLf & _
+           "Mï¿½dulos y clases eliminados y reimportados desde:" & vbCrLf & _
            "- " & modPath & vbCrLf & _
-           "- " & clsPath, vbInformation, "Reimportación"
+           "- " & clsPath, vbInformation, "Reimportaciï¿½n"
 End Sub
 
 Private Sub CleanClassHeaders(cm As Object)
-    ' Elimina, si existen, líneas de encabezado no válidas dentro del editor
-    ' como: VERSION 1.0 CLASS / BEGIN / END al inicio del módulo
+    ' Elimina, si existen, lï¿½neas de encabezado no vï¿½lidas dentro del editor
+    ' como: VERSION 1.0 CLASS / BEGIN / END al inicio del mï¿½dulo
     Dim maxCheck As Long: maxCheck = Application.WorksheetFunction.Min(10, cm.CountOfLines)
     Dim i As Long
     Dim removed As Boolean
-    ' Repetir hasta que ya no encuentre encabezados en las primeras líneas
+    ' Repetir hasta que ya no encuentre encabezados en las primeras lï¿½neas
     Do
         removed = False
         If cm.CountOfLines = 0 Then Exit Do
-        ' Revisar primeras 3 líneas típicas del encabezado exportado
+        ' Revisar primeras 3 lï¿½neas tï¿½picas del encabezado exportado
         For i = 1 To Application.WorksheetFunction.Min(3, cm.CountOfLines)
             Dim ln As String
             ln = Trim$(cm.Lines(i, 1))
@@ -87,7 +87,7 @@ Private Sub CleanClassHeaders(cm As Object)
                 removed = True
                 Exit For
             ElseIf Left$(ln, 9) = "Attribute" Then
-                ' Atributos son válidos, no tocarlos
+                ' Atributos son vï¿½lidos, no tocarlos
             ElseIf Len(ln) = 0 Then
                 cm.DeleteLines i, 1
                 removed = True
@@ -98,8 +98,8 @@ Private Sub CleanClassHeaders(cm As Object)
 End Sub
 
 Public Sub EliminarModReimportarTodo()
-    ' Este procedimiento elimina el módulo modReimportarTodo después de usarlo
-    ' Ejecutar SOLO después de haber ejecutado ReimportarTodoElCodigo
+    ' Este procedimiento elimina el mï¿½dulo modReimportarTodo despuï¿½s de usarlo
+    ' Ejecutar SOLO despuï¿½s de haber ejecutado ReimportarTodoElCodigo
     Dim vbProj As Object
     Set vbProj = Application.VBE.ActiveVBProject
     
@@ -107,7 +107,7 @@ Public Sub EliminarModReimportarTodo()
     vbProj.VBComponents.Remove vbProj.VBComponents("modReimportarTodo")
     On Error GoTo 0
     
-    MsgBox "Módulo modReimportarTodo eliminado.", vbInformation
+    MsgBox "Mï¿½dulo modReimportarTodo eliminado.", vbInformation
 End Sub
 
 

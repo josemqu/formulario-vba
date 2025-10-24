@@ -72,7 +72,7 @@ Private Sub SetupCatalogos(WS As Worksheet)
     ' Tipo de vehículo (placeholder, se puede ampliar)
     WS.Range("C1").value = "cat_tipo_vehiculo"
     WS.Range("C2:C9").value = Application.WorksheetFunction.Transpose(Array( _
-        "Bicicleta", "Moto", "Ciclomotor", "Automóvil", "Pickup", "Camión chasis", "Camión con Cisterna", "Ómnibus"))
+        "Bicicleta", "Moto", "Ciclomotor", "Autom" & ChrW(243) & "vil", "Pickup", "Cami" & ChrW(243) & "n chasis", "Cami" & ChrW(243) & "n con Cisterna", ChrW(211) & "mnibus"))
     AddOrUpdateName "cat_tipo_vehiculo", WS.Range("C2:C9")
     AddOrUpdateName "CAT_TIPO_VEHICULO", WS.Range("C2:C9")
 
