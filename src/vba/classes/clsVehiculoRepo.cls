@@ -2,7 +2,7 @@ Attribute VB_Name = "clsVehiculoRepo"
 Option Explicit
 
 Private Function Headers() As Variant
-    Headers = Array(_
+    Headers = Array( _
         "id_vehiculo", "id_incidente", "tipo_vehiculo", "duenio_vehiculo", "uso_vehiculo", _
         "posee_patente", "numero_patente", "anio_fabricacion_vehiculo", "tarea_vehiculo", "tipo_danio_vehiculo", _
         "cinturon_seguridad", "cabina_cuchetas", "airbags", "gestion_flotas", "token_conductor", _

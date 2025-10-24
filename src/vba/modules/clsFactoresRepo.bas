@@ -2,7 +2,7 @@ Attribute VB_Name = "clsFactoresRepo"
 Option Explicit
 
 Private Function Headers() As Variant
-    Headers = Array(_
+    Headers = Array( _
         "id_factor", "id_incidente", "tipo_superficie", "posee_banquina", "tipo_ruta", "densidad_trafico", _
         "condicion_ruta", "iluminacion_ruta", "senalizacion_ruta", "geometria_ruta", "condiciones_climaticas", "rango_temperaturas")
 End Function

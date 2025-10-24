@@ -2,7 +2,7 @@ Attribute VB_Name = "clsIncidenteRepo"
 Option Explicit
 
 Private Function Headers() As Variant
-    Headers = Array(_
+    Headers = Array( _
         "id_incidente", "fecha_hora_ocurrencia", "pais", "provincia", "localidad_zona", "coordenadas_geograficas", _
         "lugar_especifico", "uo_incidente", "uo_accidentado", "descripcion_esv", _
         "denuncia_policial", "examen_alcoholemia", "examen_sustancias", "entrevistas_testigos", _

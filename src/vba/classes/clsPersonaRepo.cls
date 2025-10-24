@@ -2,7 +2,7 @@ Attribute VB_Name = "clsPersonaRepo"
 Option Explicit
 
 Private Function Headers() As Variant
-    Headers = Array(_
+    Headers = Array( _
         "id_persona", "id_incidente", "nombre_persona", "apellido_persona", "edad_persona", _
         "tipo_persona", "rol_persona", "antiguedad_persona", "tarea_operativa", "turno_operativo", _
         "tipo_danio_persona", "dias_perdidos", "atencion_medica", "in_itinere", _
