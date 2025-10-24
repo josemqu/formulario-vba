@@ -61,32 +61,51 @@ Public Sub SetupESVWorkbook()
 End Sub
 
 Private Sub SetupCatalogos(WS As Worksheet)
-    Dim cats As Variant
+    ' Comunes
+    EnsureCatalog WS, "A", "cat_si_no_na", Array("SI", "NO", "NA")
 
-    ' Catálogo simple SI/NO/NA
-    WS.Range("A1").value = "cat_si_no_na"
-    WS.Range("A2:A4").value = Application.WorksheetFunction.Transpose(Array("SI", "NO", "NA"))
-    AddOrUpdateName "cat_si_no_na", WS.Range("A2:A4")
-    AddOrUpdateName "CAT_SI_NO_NA", WS.Range("A2:A4")
+    ' Vehículos (defaults de ejemplo)
+    EnsureCatalog WS, "C", "cat_tipo_vehiculo", Array( _
+        "Bicicleta", "Moto", "Ciclomotor", "Autom" & ChrW(243) & "vil", "Pickup", _
+        "Cami" & ChrW(243) & "n chasis", "Cami" & ChrW(243) & "n con Cisterna", ChrW(211) & "mnibus")
+    EnsureCatalog WS, "E", "cat_duenio_vehiculo", Array("Propio", "Contratista", "Tercero")
+    EnsureCatalog WS, "G", "cat_uso_vehiculo", Array("Comercial", "Particular", "Otro", "No se sabe", "NA")
 
-    ' Tipo de vehículo (placeholder, se puede ampliar)
-    WS.Range("C1").value = "cat_tipo_vehiculo"
-    WS.Range("C2:C9").value = Application.WorksheetFunction.Transpose(Array( _
-        "Bicicleta", "Moto", "Ciclomotor", "Autom" & ChrW(243) & "vil", "Pickup", "Cami" & ChrW(243) & "n chasis", "Cami" & ChrW(243) & "n con Cisterna", ChrW(211) & "mnibus"))
-    AddOrUpdateName "cat_tipo_vehiculo", WS.Range("C2:C9")
-    AddOrUpdateName "CAT_TIPO_VEHICULO", WS.Range("C2:C9")
+    ' Incidente (placeholders para carga manual)
+    EnsureCatalog WS, "I", "cat_pais"
+    EnsureCatalog WS, "K", "cat_provincia"
+    EnsureCatalog WS, "M", "cat_localidad_zona"
+    EnsureCatalog WS, "O", "cat_uo_incidente"
+    EnsureCatalog WS, "Q", "cat_uo_accidentado"
+    EnsureCatalog WS, "S", "cat_clase_evento"
+    EnsureCatalog WS, "U", "cat_tipo_colision"
+    EnsureCatalog WS, "W", "cat_nivel_severidad"
+    EnsureCatalog WS, "Y", "cat_clasificacion_esv"
 
-    ' Dueño de vehículo
-    WS.Range("E1").value = "cat_duenio_vehiculo"
-    WS.Range("E2:E4").value = Application.WorksheetFunction.Transpose(Array("Propio", "Contratista", "Tercero"))
-    AddOrUpdateName "cat_duenio_vehiculo", WS.Range("E2:E4")
-    AddOrUpdateName "CAT_DUENIO_VEHICULO", WS.Range("E2:E4")
+    ' Personas (placeholders)
+    EnsureCatalog WS, "AA", "cat_tipo_persona"
+    EnsureCatalog WS, "AC", "cat_rol_persona"
+    EnsureCatalog WS, "AE", "cat_antiguedad_persona"
+    EnsureCatalog WS, "AG", "cat_tarea_operativa"
+    EnsureCatalog WS, "AI", "cat_turno_operativo"
+    EnsureCatalog WS, "AK", "cat_tipo_danio_persona"
+    EnsureCatalog WS, "AM", "cat_tipo_afectacion"
+    EnsureCatalog WS, "AO", "cat_parte_afectada"
 
-    ' Uso del vehículo
-    WS.Range("G1").value = "cat_uso_vehiculo"
-    WS.Range("G2:G6").value = Application.WorksheetFunction.Transpose(Array("Comercial", "Particular", "Otro", "No se sabe", "NA"))
-    AddOrUpdateName "cat_uso_vehiculo", WS.Range("G2:G6")
-    AddOrUpdateName "CAT_USO_VEHICULO", WS.Range("G2:G6")
+    ' Vehículo adicionales (placeholders)
+    EnsureCatalog WS, "AQ", "cat_tarea_vehiculo"
+    EnsureCatalog WS, "AS", "cat_tipo_danio_vehiculo"
+
+    ' Factores (placeholders)
+    EnsureCatalog WS, "AU", "cat_tipo_superficie"
+    EnsureCatalog WS, "AW", "cat_tipo_ruta"
+    EnsureCatalog WS, "AY", "cat_densidad_trafico"
+    EnsureCatalog WS, "BA", "cat_condicion_ruta"
+    EnsureCatalog WS, "BC", "cat_iluminacion_ruta"
+    EnsureCatalog WS, "BE", "cat_senalizacion_ruta"
+    EnsureCatalog WS, "BG", "cat_geometria_ruta"
+    EnsureCatalog WS, "BI", "cat_condiciones_climaticas"
+    EnsureCatalog WS, "BK", "cat_rango_temperaturas"
 End Sub
 
 Private Sub AddOrUpdateName(nameText As String, refersToRng As Range)
@@ -99,4 +118,29 @@ Private Sub AddOrUpdateName(nameText As String, refersToRng As Range)
     Else
         nm.RefersTo = refersToRng
     End If
+End Sub
+
+Private Sub EnsureCatalog(WS As Worksheet, colLetter As String, header As String, Optional defaults As Variant)
+    Dim hdrCell As Range, firstData As Range, lastCell As Range, dataRng As Range
+    Set hdrCell = WS.Range(colLetter & "1")
+    hdrCell.value = header
+
+    Set firstData = WS.Range(colLetter & "2")
+    ' Buscar último valor en la columna
+    Set lastCell = WS.Cells(WS.Rows.Count, hdrCell.Column).End(xlUp)
+    If lastCell.Row < 2 Then
+        ' Vacío: sembrar defaults solo si se enviaron
+        If Not IsMissing(defaults) Then
+            firstData.Resize(UBound(defaults) - LBound(defaults) + 1, 1).value = _
+                Application.WorksheetFunction.Transpose(defaults)
+        End If
+        Set dataRng = WS.Range(firstData, WS.Cells(WS.Rows.Count, hdrCell.Column).End(xlUp))
+    Else
+        ' Ya hay datos: respetar existentes
+        Set dataRng = WS.Range(firstData, lastCell)
+    End If
+
+    ' Crear/actualizar nombres en minúsculas y mayúsculas
+    AddOrUpdateName header, dataRng
+    AddOrUpdateName UCase(header), dataRng
 End Sub
