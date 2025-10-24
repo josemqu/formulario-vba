@@ -1,0 +1,4 @@
+# VBA extensions: Prevent LF normalization (keep CRLF in the index)
+*.bas  -text
+*.cls  -text
+*.frm  -text

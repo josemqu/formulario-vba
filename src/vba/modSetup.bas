@@ -67,22 +67,26 @@ Private Sub SetupCatalogos(WS As Worksheet)
     WS.Range("A1").value = "cat_si_no_na"
     WS.Range("A2:A4").value = Application.WorksheetFunction.Transpose(Array("SI", "NO", "NA"))
     AddOrUpdateName "cat_si_no_na", WS.Range("A2:A4")
+    AddOrUpdateName "CAT_SI_NO_NA", WS.Range("A2:A4")
 
     ' Tipo de vehículo (placeholder, se puede ampliar)
     WS.Range("C1").value = "cat_tipo_vehiculo"
     WS.Range("C2:C9").value = Application.WorksheetFunction.Transpose(Array( _
         "Bicicleta", "Moto", "Ciclomotor", "Automóvil", "Pickup", "Camión chasis", "Camión con Cisterna", "Ómnibus"))
     AddOrUpdateName "cat_tipo_vehiculo", WS.Range("C2:C9")
+    AddOrUpdateName "CAT_TIPO_VEHICULO", WS.Range("C2:C9")
 
     ' Dueño de vehículo
     WS.Range("E1").value = "cat_duenio_vehiculo"
     WS.Range("E2:E4").value = Application.WorksheetFunction.Transpose(Array("Propio", "Contratista", "Tercero"))
     AddOrUpdateName "cat_duenio_vehiculo", WS.Range("E2:E4")
+    AddOrUpdateName "CAT_DUENIO_VEHICULO", WS.Range("E2:E4")
 
     ' Uso del vehículo
     WS.Range("G1").value = "cat_uso_vehiculo"
     WS.Range("G2:G6").value = Application.WorksheetFunction.Transpose(Array("Comercial", "Particular", "Otro", "No se sabe", "NA"))
     AddOrUpdateName "cat_uso_vehiculo", WS.Range("G2:G6")
+    AddOrUpdateName "CAT_USO_VEHICULO", WS.Range("G2:G6")
 End Sub
 
 Private Sub AddOrUpdateName(nameText As String, refersToRng As Range)
