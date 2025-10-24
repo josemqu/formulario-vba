@@ -16,23 +16,23 @@ End Sub
 
 Public Sub LoadIncidentCatalogs(frm As Object)
     On Error Resume Next
-    LoadCatalogToCombo frm.cmbPais, RangeByName("CAT_PAISES")
-    LoadCatalogToCombo frm.cmbProvincia, RangeByName("CAT_PROVINCIAS")
-    LoadCatalogToCombo frm.cmbLocalidad, RangeByName("CAT_LOCALIDADES")
+    LoadCatalogToCombo frm.cmbPais, RangeByName("CAT_PAIS")
+    LoadCatalogToCombo frm.cmbProvincia, RangeByName("CAT_PROVINCIA")
+    LoadCatalogToCombo frm.cmbLocalidad, RangeByName("CAT_LOCALIDAD_ZONA")
 
-    LoadCatalogToCombo frm.cmbUOIncidente, RangeByName("CAT_UO")
-    LoadCatalogToCombo frm.cmbUOAccidentado, RangeByName("CAT_UO")
+    LoadCatalogToCombo frm.cmbUOIncidente, RangeByName("CAT_UO_INCIDENTE")
+    LoadCatalogToCombo frm.cmbUOAccidentado, RangeByName("CAT_UO_ACCIDENTADO")
 
     LoadCatalogToCombo frm.cmbDenuncia, RangeByName("CAT_SI_NO_NA")
     LoadCatalogToCombo frm.cmbAlcohol, RangeByName("CAT_SI_NO_NA")
     LoadCatalogToCombo frm.cmbSustancias, RangeByName("CAT_SI_NO_NA")
     LoadCatalogToCombo frm.cmbEntrevistas, RangeByName("CAT_SI_NO_NA")
-    LoadCatalogToCombo frm.cmbConsecuencias, RangeByName("CAT_SI_NO")
+    LoadCatalogToCombo frm.cmbConsecuencias, RangeByName("CAT_SI_NO_NA")
 
     LoadCatalogToCombo frm.cmbClaseEvento, RangeByName("CAT_CLASE_EVENTO")
     LoadCatalogToCombo frm.cmbTipoColision, RangeByName("CAT_TIPO_COLISION")
-    LoadCatalogToCombo frm.cmbNivelSeveridad, RangeByName("CAT_SEVERIDAD")
-    LoadCatalogToCombo frm.cmbClasificacion, RangeByName("CAT_CLASIFICACION")
+    LoadCatalogToCombo frm.cmbNivelSeveridad, RangeByName("CAT_NIVEL_SEVERIDAD")
+    LoadCatalogToCombo frm.cmbClasificacion, RangeByName("CAT_CLASIFICACION_ESV")
     On Error GoTo 0
 End Sub
 
